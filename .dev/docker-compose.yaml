@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  app:
+    container_name: "app"
+    build:
+      context: ..
+      dockerfile: .dev/Dockerfile
+      args:
+        SERVICE: app
+    ports:
+      - 8080:8080
+    volumes:
+      - ../:/go/src/app
+      - $GOPATH/pkg/:/go/pkg

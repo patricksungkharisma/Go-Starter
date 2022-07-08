@@ -1,0 +1,32 @@
+# Air config file (https://github.com/cosmtrek/air)
+
+# root directory
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# build docker
+cmd = "go build -v -o tmp/bin/app cmd/app/*.go"
+
+# tmp file location
+bin = "tmp/bin/app"
+full_bin ="./tmp/bin/app"
+
+# show log
+log = "air_error.log"
+
+# include and exclude extensions
+include_ext = ["go", "yaml", "json", "asvc"]
+exclude_dir = ["tmp"]
+
+# delay in ms
+delay = 1000
+
+[log]
+# show time in log
+time = true
+
+[misc]
+# delete tmp on exit
+clean_on_exit = true
+
