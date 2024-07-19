@@ -1,38 +1,27 @@
-# Init Project
 .PHONY: init
 init:
-	@echo "=== Initialize Requirements ==="
-	@chmod +x .dev/initialize.sh
-	@.dev/initialize.sh
+	chmod +x .dev/initialize.sh
+	.dev/initialize.sh
 
-# Setup Dependencies
-.PHONY: download
-download:
-	@echo "=== Downloading Dependencies ==="
-	@go mod download
-	@sleep 1
-	@echo "=== Removing Vendor Folder ==="
-	@rm -rf vendor
-	@echo "=== Setup Vendor in Go Pkg Cache ==="
-	@go mod tidy
-	@sleep 1
-	@echo "=== Dependencies Setup All OK ==="
+.PHONY: deps-up
+deps-up:
+	@docker-compose -f .dev/docker-compose.yaml up -d
 
-# Start App
+.PHONY: deps-down
+deps-down:
+	@docker-compose -f .dev/docker-compose.yaml down
+
 .PHONY: start-app
 start-app:
-	@echo "=== Running Program ==="
-	@sudo chown -R $$(id -u):$$(id -g) .dev
-	@echo "=== DOCKER UP ==="
-	@docker-compose -p app -f .dev/docker-compose.yaml up --build ${SERVICE}
+	@air -c .dev/.app.air.toml
 
-# Stop App
-.PHONY: stop-app
-stop-app:
-	@docker-compose -p app -f .dev/docker-compose.yaml down
+.PHONY: clear-postgres-data
+clear-postgres-data:
+	@echo "Deleting docker postgres data..."
+	@rm -rf .dev/.docker/postgres-data
+	@echo "Deletion complete!"
 
-# Unit Test
-.PHONY: Test
-test:
-	@which gotest 2>/dev/null || go get -v github.com/rakyll/gotest
-	@gotest --race $$(go list ./... | grep -v vendor | grep -v proto | grep -v cmd)
+# .PHONY: test
+# test:
+# 	@which gotest 2>/dev/null || go get -v github.com/rakyll/gotest
+# 	@gotest --race $$(go list ./... | grep -v vendor | grep -v proto | grep -v cmd)
