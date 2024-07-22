@@ -1,18 +1,20 @@
-# check go test
-if ! command -v gotest &> /dev/null
-then
-    go get -u github.com/rakyll/gotest
-fi 
-echo "=== go-test OK ==="
+#!/bin/bash
 
-# check mockgen
-if ! command -v mockgen &> /dev/null
-then
-    go install github.com/golang/mock/mockgen
-fi
-echo "=== mockgen OK ==="
+echo "=== Initialize Requirements ==="
 
-# check dependency setup
-make download
+echo "Installing gotest..."
+go get github.com/rakyll/gotest
 
-echo "=== Initialization Completed ==="
+echo "Installing mockgen..."
+go install github.com/golang/mock/mockgen@v1.6.0
+
+echo "Installing air..."
+go install github.com/air-verse/air@latest
+
+echo "Downloading dependencies..."
+go mod download
+
+echo "Vendor setup..."
+go mod vendor
+
+echo "=== Initialization Complete ==="

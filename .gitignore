@@ -6,3 +6,12 @@ tmp
 
 # vendor folder
 vendor
+
+# docker database data
+.docker
+
+# docker development env
+.dev/.env
+
+# credentials
+credentials/config.json
