@@ -6,10 +6,10 @@ import (
 	entity "github.com/patricksungkharisma/go-starter/internal/entity"
 )
 
-func (r *Repo) GetExampleDataDB(ctx context.Context, req entity.GetExampleRequest) (entity.GetExampleResponse, error) {
+func (r *Repo) GetExampleDataDB(ctx context.Context, id int64) (entity.GetExampleResponse, error) {
 	result := entity.GetExampleResponse{}
 
-	err := r.database.GetContext(ctx, &result, queryGetExampleData, req.ID)
+	err := r.database.GetContext(ctx, &result, queryGetExampleData, id)
 	if err != nil {
 		return result, err
 	}

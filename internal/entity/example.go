@@ -1,7 +1,7 @@
 package entity
 
 type GetExampleRequest struct {
-	ID int64
+	ID string
 }
 
 type GetExampleResponse struct {

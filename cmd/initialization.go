@@ -26,28 +26,28 @@ func InitResource(cfg config.Config) (Resource, error) {
 	return resource, nil
 }
 
-func InitRepo(resource Resource) Repo {
+func InitRepo(cfg config.Config, resource Resource) Repo {
 	repo := Repo{}
 
-	app := apprepo.New(resource.Database)
+	app := apprepo.New(cfg, resource.Database)
 	repo.AppRepo = app
 
 	return repo
 }
 
-func InitUsecase(repo Repo) Usecase {
+func InitUsecase(cfg config.Config, repo Repo) Usecase {
 	usecase := Usecase{}
 
-	app := appusecase.New(repo.AppRepo)
+	app := appusecase.New(cfg, repo.AppRepo)
 	usecase.AppUsecase = app
 
 	return usecase
 }
 
-func InitHandler(usecase Usecase) Handler {
+func InitHandler(cfg config.Config, usecase Usecase) Handler {
 	handler := Handler{}
 
-	app := apphandler.New(usecase.AppUsecase)
+	app := apphandler.New(cfg, usecase.AppUsecase)
 	handler.AppHandler = app
 
 	return handler

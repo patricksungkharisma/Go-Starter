@@ -21,9 +21,9 @@ func main() {
 		log.Fatalln("[main] error on init resource: ", err)
 	}
 
-	repo := cmd.InitRepo(resource)
-	usecase := cmd.InitUsecase(repo)
-	handler := cmd.InitHandler(usecase)
+	repo := cmd.InitRepo(config, resource)
+	usecase := cmd.InitUsecase(config, repo)
+	handler := cmd.InitHandler(config, usecase)
 
 	err = serverStarter(handler)
 	if err != nil {

@@ -15,13 +15,13 @@ deps-down:
 start-app:
 	@air -c .dev/.app.air.toml
 
+.PHONY: test
+test:
+	@go test --race $$(go list ./... | grep -v vendor | grep -v proto | grep -v cmd)
+
 .PHONY: clear-postgres-data
 clear-postgres-data:
 	@echo "Deleting docker postgres data..."
 	@rm -rf .dev/.docker/postgres-data
 	@echo "Deletion complete!"
 
-# .PHONY: test
-# test:
-# 	@which gotest 2>/dev/null || go get -v github.com/rakyll/gotest
-# 	@gotest --race $$(go list ./... | grep -v vendor | grep -v proto | grep -v cmd)
