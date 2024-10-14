@@ -1,5 +1,9 @@
 {
     "environment": "development",
+    "server": {
+        "host": "localhost",
+        "port": "8080"
+    },
     "database": {
         "database_type": "postgres",
         "database_connection_format": "postgres://%s:%s@%s:%s/%s?sslmode=disable",

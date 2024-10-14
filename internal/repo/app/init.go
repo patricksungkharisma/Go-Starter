@@ -6,8 +6,8 @@ import (
 )
 
 type Repo struct {
-	cfg      config.Config
-	database databaseResource
+	Config   config.Config
+	Database DatabaseResource
 }
 
 func New(
@@ -15,7 +15,7 @@ func New(
 	database *sqlx.DB,
 ) *Repo {
 	return &Repo{
-		cfg:      config,
-		database: database,
+		Config:   config,
+		Database: database,
 	}
 }

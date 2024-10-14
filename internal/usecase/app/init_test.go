@@ -1,4 +1,4 @@
-package app
+package app_test
 
 import (
 	"reflect"
@@ -6,23 +6,24 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	"github.com/patricksungkharisma/go-starter/internal/config"
+	"github.com/patricksungkharisma/go-starter/internal/usecase/app"
 )
 
 func TestNew(t *testing.T) {
 	var (
 		ctrl        = gomock.NewController(t)
-		mockAppRepo = NewMockappRepo(ctrl)
+		mockAppRepo = NewMockAppRepo(ctrl)
 	)
 	defer ctrl.Finish()
 
 	type args struct {
 		cfg     config.Config
-		appRepo appRepo
+		appRepo app.AppRepo
 	}
 	tests := []struct {
 		name string
 		args args
-		want *Usecase
+		want *app.Usecase
 	}{
 		{
 			name: "success",
@@ -30,15 +31,15 @@ func TestNew(t *testing.T) {
 				cfg:     config.Config{},
 				appRepo: mockAppRepo,
 			},
-			want: &Usecase{
-				cfg:     config.Config{},
-				appRepo: mockAppRepo,
+			want: &app.Usecase{
+				Config:  config.Config{},
+				AppRepo: mockAppRepo,
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := New(tt.args.cfg, tt.args.appRepo); !reflect.DeepEqual(got, tt.want) {
+			if got := app.New(tt.args.cfg, tt.args.appRepo); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})

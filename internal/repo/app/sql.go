@@ -1,7 +1,7 @@
 package app
 
 const (
-	queryGetExampleData = `
+	QueryGetExampleData = `
 		SELECT *
 		FROM example_table
 		WHERE

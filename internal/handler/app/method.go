@@ -2,10 +2,9 @@ package app
 
 import (
 	"context"
-	"log"
 
 	entity "github.com/patricksungkharisma/go-starter/internal/entity"
-	entityerror "github.com/patricksungkharisma/go-starter/internal/error"
+	errs "github.com/patricksungkharisma/go-starter/internal/error"
 	"github.com/patricksungkharisma/go-starter/internal/middleware"
 )
 
@@ -17,10 +16,9 @@ func (h *Handler) GetExample(r *middleware.RequestContext) {
 		ID: id,
 	}
 
-	result, err := h.appUsecase.GetExampleData(ctx, request)
-	if err != nil {
-		log.Println(err)
-		middleware.ResponseFail(r, middleware.HTTPServerErrorStatusCode, entityerror.GetExampleDataError, err)
+	result, customErr := h.AppUsecase.GetExampleData(ctx, request)
+	if customErr != nil {
+		middleware.ResponseFail(r, errs.ErrGetExampleData, customErr)
 	}
 
 	middleware.ResponseSuccess(r, result)

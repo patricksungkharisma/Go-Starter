@@ -1,12 +1,18 @@
 package config
 
 const (
-	configFilePath = "./credentials/config.json"
+	developmentConfigFilePath = "./config/config.json"
 )
 
 type Config struct {
 	Environment string         `json:"environment"`
+	Server      ServerConfig   `json:"server"`
 	Database    DatabaseConfig `json:"database"`
+}
+
+type ServerConfig struct {
+	Host string `json:"host"`
+	Port string `json:"port"`
 }
 
 type DatabaseConfig struct {

@@ -1,18 +1,18 @@
-package cmd
+package http
 
 import (
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
-	_ "github.com/lib/pq"
 	"github.com/patricksungkharisma/go-starter/internal/config"
+	"github.com/pkg/errors"
+
 	apphandler "github.com/patricksungkharisma/go-starter/internal/handler/app"
 	apprepo "github.com/patricksungkharisma/go-starter/internal/repo/app"
 	appusecase "github.com/patricksungkharisma/go-starter/internal/usecase/app"
-	"github.com/pkg/errors"
 )
 
-func InitResource(cfg config.Config) (Resource, error) {
+func initResource(cfg config.Config) (Resource, error) {
 	resource := Resource{}
 
 	connString := fmt.Sprintf(cfg.Database.DatabaseConnectionFormat, cfg.Database.Username, cfg.Database.Password, cfg.Database.Host, cfg.Database.Port, cfg.Database.DatabaseName)
@@ -26,7 +26,7 @@ func InitResource(cfg config.Config) (Resource, error) {
 	return resource, nil
 }
 
-func InitRepo(cfg config.Config, resource Resource) Repo {
+func initRepo(cfg config.Config, resource Resource) Repo {
 	repo := Repo{}
 
 	app := apprepo.New(cfg, resource.Database)
@@ -35,7 +35,7 @@ func InitRepo(cfg config.Config, resource Resource) Repo {
 	return repo
 }
 
-func InitUsecase(cfg config.Config, repo Repo) Usecase {
+func initUsecase(cfg config.Config, repo Repo) Usecase {
 	usecase := Usecase{}
 
 	app := appusecase.New(cfg, repo.AppRepo)
@@ -44,7 +44,7 @@ func InitUsecase(cfg config.Config, repo Repo) Usecase {
 	return usecase
 }
 
-func InitHandler(cfg config.Config, usecase Usecase) Handler {
+func initHandler(cfg config.Config, usecase Usecase) Handler {
 	handler := Handler{}
 
 	app := apphandler.New(cfg, usecase.AppUsecase)

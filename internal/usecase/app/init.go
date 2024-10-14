@@ -3,16 +3,16 @@ package app
 import "github.com/patricksungkharisma/go-starter/internal/config"
 
 type Usecase struct {
-	cfg     config.Config
-	appRepo appRepo
+	Config  config.Config
+	AppRepo AppRepo
 }
 
 func New(
 	config config.Config,
-	appRepo appRepo,
+	appRepo AppRepo,
 ) *Usecase {
 	return &Usecase{
-		cfg:     config,
-		appRepo: appRepo,
+		Config:  config,
+		AppRepo: appRepo,
 	}
 }

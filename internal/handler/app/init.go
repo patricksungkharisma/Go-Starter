@@ -3,16 +3,16 @@ package app
 import "github.com/patricksungkharisma/go-starter/internal/config"
 
 type Handler struct {
-	cfg        config.Config
-	appUsecase appUsecase
+	Config     config.Config
+	AppUsecase AppUsecase
 }
 
 func New(
 	config config.Config,
-	appUsecase appUsecase,
+	appUsecase AppUsecase,
 ) *Handler {
 	return &Handler{
-		cfg:        config,
-		appUsecase: appUsecase,
+		Config:     config,
+		AppUsecase: appUsecase,
 	}
 }

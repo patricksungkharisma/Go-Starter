@@ -1,7 +1,10 @@
 package middleware
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	errs "github.com/patricksungkharisma/go-starter/internal/error"
 )
 
 func WrapHandlerFunc(funcHandler func(r *RequestContext)) gin.HandlerFunc {
@@ -16,29 +19,24 @@ func WrapHandlerFunc(funcHandler func(r *RequestContext)) gin.HandlerFunc {
 func ResponseSuccess(ctx *RequestContext, data interface{}) {
 	c := ctx.GinContext
 	if data == nil {
-		c.JSON(HTTPSuccessStatusCode, gin.H{})
+		c.JSON(http.StatusInternalServerError, gin.H{})
 		return
 	}
 
-	response := Response{
+	response := SuccessResponse{
 		Response: data,
 	}
 
-	c.JSON(HTTPSuccessStatusCode, response)
+	c.JSON(http.StatusOK, response)
 }
 
-func ResponseFail(ctx *RequestContext, httpStatus int, message string, err error) {
+func ResponseFail(ctx *RequestContext, message string, err *errs.TemplateError) {
 	c := ctx.GinContext
 
-	var errorDetails string
-	if err != nil {
-		errorDetails = err.Error()
-	}
-
 	errors := ErrorResponse{
-		Message: message,
-		Error:   errorDetails,
+		Message:      message,
+		ErrorDetails: err.Error,
 	}
 
-	c.JSON(httpStatus, errors)
+	c.JSON(err.StatusCode, errors)
 }

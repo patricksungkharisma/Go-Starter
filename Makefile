@@ -11,8 +11,8 @@ deps-up:
 deps-down:
 	@docker-compose -f .dev/docker-compose.yaml down
 
-.PHONY: start-app
-start-app:
+.PHONY: air-http
+air-http:
 	@air -c .dev/.app.air.toml
 
 .PHONY: test

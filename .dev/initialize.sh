@@ -6,7 +6,7 @@ echo "Installing gotest..."
 go get github.com/rakyll/gotest
 
 echo "Installing mockgen..."
-go install github.com/golang/mock/mockgen@v1.6.0
+go install github.com/golang/mock/mockgen@latest
 
 echo "Installing air..."
 go install github.com/air-verse/air@latest

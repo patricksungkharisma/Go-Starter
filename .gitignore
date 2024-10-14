@@ -10,8 +10,8 @@ vendor
 # docker database data
 .docker
 
-# docker development env
+# development env
 .dev/.env
 
-# credentials
-credentials/config.json
+# config
+config/config.json

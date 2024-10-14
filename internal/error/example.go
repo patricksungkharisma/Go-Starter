@@ -1,6 +1,10 @@
 package error
 
 const (
-	ParameterParsingError = "parameter parsing error"
-	GetExampleDataError   = "get example data error"
+	ErrGetExampleData = "fail when trying to get example data"
+)
+
+const (
+	ErrTagGetExampleDataDB = "[GetExampleDataDB]"
+	ErrTagGetExampleData   = "[GetExampleData]"
 )

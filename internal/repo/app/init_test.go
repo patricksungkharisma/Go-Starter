@@ -1,4 +1,4 @@
-package app
+package app_test
 
 import (
 	"reflect"
@@ -8,6 +8,7 @@ import (
 	gomock "github.com/golang/mock/gomock"
 	"github.com/jmoiron/sqlx"
 	"github.com/patricksungkharisma/go-starter/internal/config"
+	"github.com/patricksungkharisma/go-starter/internal/repo/app"
 )
 
 func TestNew(t *testing.T) {
@@ -24,22 +25,22 @@ func TestNew(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *Repo
+		want *app.Repo
 	}{
 		{
 			name: "success",
 			args: args{
 				cfg: config.Config{},
 			},
-			want: &Repo{
-				cfg:      config.Config{},
-				database: db,
+			want: &app.Repo{
+				Config:   config.Config{},
+				Database: db,
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := New(tt.args.cfg, db); !reflect.DeepEqual(got, tt.want) {
+			if got := app.New(tt.args.cfg, db); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})
